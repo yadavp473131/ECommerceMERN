@@ -27,9 +27,12 @@ mongoose.connect(process.env.MONGODB_URL)
 
 app.use(
     cors({
-        origin: function (origin, callback) {
-    callback(null, true); // allow all origins dynamically no need to remove credentials true
-  },
+
+        // origin: function (origin, callback) {
+        //    callback(null, true); // allow all origins dynamically no need to remove credentials true
+        // }
+        origin:"https://ecommercemern-1-bjg3.onrender.com"
+        ,
         methods: ['GET', 'POST', 'DELETE', 'PUT'],
         allowedHeaders: [
             "Content-Type",
