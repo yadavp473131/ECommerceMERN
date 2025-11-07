@@ -5,7 +5,8 @@ import axios from "axios";
 const initialState = {
     isAuthenticated: false,
     isLoading: true,
-    user: null
+    user: null,
+    token:null
 }
 
 //        actioncreators                   identifier
@@ -32,12 +33,25 @@ export const logoutUser = createAsyncThunk('/auth/logout',
    
 )
 
+// export const checkAuth = createAsyncThunk('/auth/checkauth',
+//     async () => {
+//         const response = await axios.get('http://localhost:5000/api/auth/check-auth'
+//             , {
+//                 withCredentials: true,
+//                 headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', }
+//             },);
+//         return response.data;
+//     }
+// )
 export const checkAuth = createAsyncThunk('/auth/checkauth',
-    async () => {
+    async (token) => {
         const response = await axios.get('http://localhost:5000/api/auth/check-auth'
             , {
                 withCredentials: true,
-                headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', }
+                 
+                headers: { 
+                    Authorization: `Bearer ${token}`,
+                    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', }
             },);
         return response.data;
     }
@@ -48,9 +62,15 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUser: (state, action) => {
 
-        }
+        setUser: (state, action) => {},
+        //when logout reset everything
+         resetTokenAndCredentials: (state)=>{
+                state.isAuthenticated = false
+                state.user = null
+                state.token = null
+         }
+        
     },
     //you can manage by builder
     extraReducers: (builder) => {
@@ -70,11 +90,14 @@ const authSlice = createSlice({
         }).addCase(loginUser.fulfilled, (state, action) => {
             state.isLoading = false;
             state.user = action.payload.success ? action.payload.user : null;
+            state.token = action.payload.token
             state.isAuthenticated = action.payload.success;
+            sessionStorage.setItem('token', JSON.stringify(action.payload.token))
         }).addCase(loginUser.rejected, (state, action) => {
             state.isLoading = false;
             state.user = null;
             state.isAuthenticated = false;
+            state.token = null
         }).addCase(checkAuth.pending, (state) => {
             state.isLoading = true;
         }).addCase(checkAuth.fulfilled, (state, action) => {
@@ -94,7 +117,7 @@ const authSlice = createSlice({
 
 })
 //setUser is auto-generated action creator which can be dispatched elsewhere
-export const { setUser } = authSlice.actions;
+export const { setUser,resetTokenAndCredentials } = authSlice.actions;
 //authSlice has a property reducer different from one that i provided inside reducers
 export default authSlice.reducer;
 

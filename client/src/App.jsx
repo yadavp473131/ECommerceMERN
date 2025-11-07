@@ -33,8 +33,9 @@ function App() {
    
    
    useEffect(()=>{
+      const token = JSON.parse(sessionStorage.getItem('token'));
       //sends checkAuth action to store
-      dispatch(checkAuth());
+      dispatch(checkAuth(token));
    },[dispatch])
    
 
