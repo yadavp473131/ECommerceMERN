@@ -13,7 +13,7 @@ const initialState = {
 export const registerUser = createAsyncThunk('/auth/register',
     //payload creator
     async (formData) => {
-        const response = await axios.post('http://localhost:5000/api/auth/register', formData, { withCredentials: true });
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, formData, { withCredentials: true });
         return response.data;//later becomes action.payload
     }
 )
@@ -21,14 +21,14 @@ export const registerUser = createAsyncThunk('/auth/register',
 export const loginUser = createAsyncThunk('/auth/login',
     async (formData) => {
         // const response = await axios.post('http://localhost:5000/api/auth/login', formData, { withCredentials: true });
-        const response = await axios.post('https://ecommercemern-d16d.onrender.com/api/auth/login', formData, { withCredentials: true });
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, formData, { withCredentials: true });
         return response.data;
     }
 )
 
 export const logoutUser = createAsyncThunk('/auth/logout',
     async () => {
-        const response = await axios.post('http://localhost:5000/api/auth/logout',  {},{ withCredentials: true });
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/logout`,  {},{ withCredentials: true });
         return response.data;
     }
    
@@ -46,7 +46,7 @@ export const logoutUser = createAsyncThunk('/auth/logout',
 // )
 export const checkAuth = createAsyncThunk('/auth/checkauth',
     async (token) => {
-        const response = await axios.get('http://localhost:5000/api/auth/check-auth'
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/check-auth`
             , {
                 withCredentials: true,
                  
