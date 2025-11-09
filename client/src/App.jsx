@@ -17,19 +17,24 @@ import ShoppingAccount from "./pages/shopping-view/account"
 import {checkAuth} from "./store/auth-slice"
 import UnauthPage from "./pages/unauth-page"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useEffect,useState } from "react"
 import CheckAuth from "./components/common/check-auth"
 import { Skeleton } from "@/components/ui/skeleton"
 import PaypalReturnPage from "./pages/shopping-view/paypal-return"
 import PaymentSuccessPage from "./pages/shopping-view/payment-success"
 import SearchProducts from "./pages/shopping-view/search"
+import Toast from "./components/ui/toast"
 
 function App() {
-   // const isAuthenticated = true;
-   // const user = null;
 
-   const {user, isAuthenticated, isLoading} = useSelector(state=> state.auth)
    const dispatch = useDispatch();
+   const {user, isAuthenticated, isLoading} = useSelector(state=> state.auth)
+   const [toast, setToast] = useState({ message: "", type: "" });
+  
+   const showToast = (message, type) => {
+    setToast({ message, type });
+  };
+
    
    
    useEffect(()=>{
@@ -57,36 +62,42 @@ function App() {
                   <AuthLayout  />
                </CheckAuth>
             }>
-               <Route path="login" element={<AuthLogin />} />
-               <Route path="register" element={<AuthRegister />} />
+               <Route path="login" element={<AuthLogin showToast={showToast}/>} />
+               <Route path="register" element={<AuthRegister showToast={showToast}/>} />
             </Route>
             <Route path="/admin" element={
                <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-                  <AdminLayout />
+                  <AdminLayout showToast={showToast}/>
                </CheckAuth>
             }>
-               <Route path="dashboard" element={<AdminDashboard />} />
-               <Route path="products" element={<AdminProducts />} />
-               <Route path="orders" element={<AdminOrders />} />
+               <Route path="dashboard" element={<AdminDashboard showToast={showToast}/>} />
+               <Route path="products" element={<AdminProducts showToast={showToast}/>} />
+               <Route path="orders" element={<AdminOrders showToast={showToast}/>} />
                <Route path="features" element={<AdminFeatures />} />
             </Route>
             <Route path="/shop" element={
                <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-                  <ShoppingLayout />
+                  <ShoppingLayout showToast={showToast}/>
                </CheckAuth>
             }>
-               <Route path="account" element={<ShoppingAccount />} />
-               <Route path="checkout" element={<ShoppingCheckout />} />
-               <Route path="listing" element={<ShoppingListing />} />
-               <Route path="home" element={<ShoppingHome />} />
-               <Route path="paypal-return" element={<PaypalReturnPage />} />
-               <Route path="payment-success" element={<PaymentSuccessPage />} />
-               <Route path="search" element={<SearchProducts />} />
+               <Route path="account" element={<ShoppingAccount showToast={showToast}/>} />
+               <Route path="checkout" element={<ShoppingCheckout showToast={showToast}/>} />
+               <Route path="listing" element={<ShoppingListing showToast={showToast}/>} />
+               <Route path="home" element={<ShoppingHome showToast={showToast}/>} />
+               <Route path="paypal-return" element={<PaypalReturnPage showToast={showToast}/>} />
+               <Route path="payment-success" element={<PaymentSuccessPage showToast={showToast}/>} />
+               <Route path="search" element={<SearchProducts showToast={showToast}/>} />
             </Route>
             <Route path="/unauth-page" element={<UnauthPage/>} />
             <Route path="*" element={<NotFound />} />
          </Routes>
-
+         {toast.message && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ message: "", type: "" })}
+        />
+      )}  
       </div>
    )
 }

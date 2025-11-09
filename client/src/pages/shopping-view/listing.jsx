@@ -23,7 +23,7 @@ function createSearchParamsHelper(filterParams){
      return queryParams.join('&');
 }
 
-export default function ShoppingListing() {
+export default function ShoppingListing({showToast}) {
 
   const dispatch = useDispatch()
   const { productList, productDetails } = useSelector((state) => state.shopProducts);
@@ -83,6 +83,7 @@ export default function ShoppingListing() {
             //   title: `Only ${getTotalStock} quantity can be added for this item`
             //   variant: "destructive"
             //  })
+            showToast(`Only ${getTotalStock} quantity can be added for this item`,"info")
             return;
           }
         }
@@ -97,6 +98,7 @@ export default function ShoppingListing() {
             //   title: 'Product is added to cart',
               
             // })
+            showToast("Product is added to cart");
         }
        });
   }

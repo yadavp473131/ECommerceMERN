@@ -21,7 +21,7 @@ const initialFormData = {
 
 
 
-export default function AdminProducts() {
+export default function AdminProducts({showToast}) {
   const [openCreateProductsDialog, setopenCreateProductsDialog] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const [imageFile, setImageFile] = useState(null);
@@ -42,9 +42,12 @@ export default function AdminProducts() {
         if (data?.payload?.success) {
           //again fetch list of products
           dispatch(fetchAllProducts());
-          setFormData(inititalFormData)
+          setFormData(initialFormData)
           setopenCreateProductsDialog(false)
           setCurrentEditedId(null)
+          showToast(data.payload.message, "success");
+        }else{
+          showToast(data.error.message, "error");
         }
       }) :
 
@@ -61,6 +64,9 @@ export default function AdminProducts() {
           // toast({
           //   title : 'Product add successfully'
           // })
+          showToast(data.payload.message, "success")
+        }else{
+          showToast(data.error.message,"error");
         }
       })
   }
@@ -69,7 +75,10 @@ export default function AdminProducts() {
     
     dispatch(deleteProduct(getCurrentProductId)).then(data=>{
       if(data?.payload?.success){
+          showToast(data.payload.message, "success");
           dispatch(fetchAllProducts());
+      }else{
+        showToast(data.error.message, "error");
       }
     })
   }
@@ -107,7 +116,7 @@ export default function AdminProducts() {
     <Sheet open={openCreateProductsDialog} onOpenChange={() => {
       setopenCreateProductsDialog(false);
       setCurrentEditedId(null)
-      setFormData(inititalFormData)
+      setFormData(initialFormData)
     }}>
       <SheetContent side="right" className="overflow-auto bg-white">
         <SheetHeader>
@@ -123,6 +132,7 @@ export default function AdminProducts() {
           setImageLoadingState={setImageLoadingState}
           setUploadedImageUrl={setUploadedImageUrl}
           isEditMode={currentEditedId !== null}
+          showToast={showToast}
         />
         <div className='py-6 ml-4 mr-3.5'>
           <CommonForm formData={formData} setFormData={setFormData} buttonText={currentEditedId !== null ? 'Edit' : 'Add'} onSubmit={onSubmit}

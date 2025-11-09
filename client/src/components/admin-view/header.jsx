@@ -5,13 +5,14 @@ import { useDispatch } from 'react-redux'
 import { logoutUser } from '@/store/auth-slice';
 import { useNavigate } from 'react-router-dom';
 
-export default function AdminHeader({setOpen}) {
+export default function AdminHeader({setOpen, showToast}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   function handleLogout(){
     //  dispatch(logoutUser())
     dispatch(resetTokenAndCredentials());
         sessionStorage.clear();
+        showToast("Logout Successful!","success");
         navigate("/auth/login")
   }
 

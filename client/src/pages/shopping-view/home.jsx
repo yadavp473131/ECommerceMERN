@@ -29,7 +29,7 @@ const brandsWithIcon = [
   { id: "h&m", label: "H&M", icon: Heater },
 ]
 
-export default function ShoppingHome() {
+export default function ShoppingHome({showToast}) {
 
   // const slides = [bannershop2, shopping5];
   const dispatch = useDispatch();
@@ -69,6 +69,9 @@ export default function ShoppingHome() {
           //   title: 'Product is added to cart',
 
           // })
+         showToast(data.payload.message, "success")
+        }else{
+          showToast(data.error.message, "error")
         }
       });
   }

@@ -15,7 +15,8 @@ const ProductImageUpload = ({
   imageLoadingState,
   setImageLoadingState ,
   isEditMode,
-  isCustomStyling = false
+  isCustomStyling = false,
+  showToast={showToast}
    }) => {
 
   const inputRef = useRef(null);
@@ -59,6 +60,9 @@ const ProductImageUpload = ({
     if(response.data?.success) {
       setUploadedImageUrl(response.data.result.url);
       setImageLoadingState(false);
+      showToast("Image Uploaded Successfully!","success")
+    }else{
+      showToast("Image is not uploaded!","error")
     }
   }
 

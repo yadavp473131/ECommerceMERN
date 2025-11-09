@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
-const SearchProducts = () => {
+const SearchProducts = ({showToast}) => {
   const [keyword, setKeyword] = useState("");
   const [searchParams, setSearchParams] = useSearchParams()
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false)
@@ -43,6 +43,7 @@ const SearchProducts = () => {
               //   title: `Only ${getTotalStock} quantity can be added for this item`
               //   variant: "destructive"
               //  })
+              showToast(`Only ${getTotalStock} quantity can be added for this item`);
               return;
             }
           }
@@ -57,6 +58,7 @@ const SearchProducts = () => {
               //   title: 'Product is added to cart',
                 
               // })
+              showToast('Product is added to cart');
           }
          });
     }

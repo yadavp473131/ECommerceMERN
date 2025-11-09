@@ -4,7 +4,7 @@ import { addFeatureImage, getFeatureImages } from '@/store/common-slice';
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function AdminDashboard() {
+export default function AdminDashboard({showToast}) {
 
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
@@ -22,6 +22,9 @@ export default function AdminDashboard() {
           dispatch(getFeatureImages())
           setImageFile(null)
           setUploadedImageUrl("");
+          showToast(data.payload.message,"success");
+        }else{
+          showToast(data.error.message, "error")
         }
 
       }

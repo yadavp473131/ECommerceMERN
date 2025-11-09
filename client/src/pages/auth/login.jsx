@@ -11,7 +11,7 @@ const initialState = {
   password : '',
 }
 
-export default function AuthLogin() {
+export default function AuthLogin({showToast}) {
 
   const [formData, setFormData] = useState(initialState); 
   const dispatch = useDispatch();
@@ -25,11 +25,13 @@ export default function AuthLogin() {
               //  toast ({
               //   title: data?.payload.message
               //  })
+              showToast(data.payload.message,"success");
            }else{
               // toast({
               //   title: data?.payload.message,
               //   variant: 'destructive'
               //  })
+              showToast(data.error.message, "error")
            }
         });
   }

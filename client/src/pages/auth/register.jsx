@@ -11,7 +11,7 @@ const initialState = {
   password : '',
 }
 
-export default function AuthRegister() {
+export default function AuthRegister({showToast}) {
 
   const [formData, setFormData] = useState(initialState); 
   const dispatch = useDispatch();
@@ -20,19 +20,21 @@ export default function AuthRegister() {
   function onSubmit(event){
    event.preventDefault();
   dispatch(registerUser(formData)).then((data)=>{
-    console.log(data);
+    // console.log(data);
     //registration successfull toast deprecated in  shadcn ui
 
-    //if(data?.payload?.success){
+    if(data?.payload?.success){
     // toast({
     //   title: data?.payload?.message
     // })
-    //}else{
+    showToast(data.payload.message, "success")
+    }else{
     //  toast({
     //   title: data?.payload?.message,
     // variant: 'destructive'
     // })
-    //}
+    showToast(data.error.message, "error")
+    }
     navigate('/auth/login'); 
   });
 

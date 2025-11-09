@@ -6,7 +6,7 @@ import UserCartItemsContent from '@/components/shopping-view/cart-items-content'
 import { Button } from '@/components/ui/button';
 import { createNewOrder } from '@/store/shop/order-slice';
 
-export default function ShoppingCheckout() {
+export default function ShoppingCheckout({showToast}) {
   
   const dispatch = useDispatch();
   const {cartItems} = useSelector(state=>state.shopCart);
@@ -29,6 +29,7 @@ export default function ShoppingCheckout() {
           //   title: 'Your cart is empty. please add some items to proceed',
           //   variant: 'destructive'
           //  })
+          showToast("Your cart is empty. please add some items to proceed","error")
           return;
      }
 
@@ -38,6 +39,7 @@ export default function ShoppingCheckout() {
           //   title: 'Please select an address to proceed',
           //   variant: 'destructive'
           //  })
+          showToast("Please select an address to proceed","error");
           return;
      }
 
