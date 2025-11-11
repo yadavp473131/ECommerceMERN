@@ -173,7 +173,8 @@ export default function ShoppingHome({showToast}) {
       </section>
       <ProductDetailsDialog open={openDetailsDialog} 
                             setOpen={setOpenDetailsDialog} 
-                            productDetails={productDetails} />
+                            productDetails={productDetails} 
+                            showToast={showToast}/>
     </div>
   )
 }
