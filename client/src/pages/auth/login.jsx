@@ -31,8 +31,7 @@ export default function AuthLogin({showToast}) {
               //   title: data?.payload.message,
               //   variant: 'destructive'
               //  })
-              showToast(data,"error")
-              showToast(data?.error.message, "error");
+              showToast(data?.payload?.message, "error");
            }
         });
   }
