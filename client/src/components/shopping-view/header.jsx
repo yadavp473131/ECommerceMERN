@@ -115,7 +115,7 @@ export default function ShoppingHeader({showToast}) {
         <MenuItems />
       </div>
       <div className='hidden lg:block'>
-        <HeaderRightContent />
+        <HeaderRightContent showToast={showToast}/>
       </div>
     </div>
   </header>
