@@ -1,10 +1,10 @@
 import React from 'react'
 import AdminOrdersView from '@/components/admin-view/orders'
 
-export default function AdminOrders() {
+export default function AdminOrders({showToast}) {
   return (
     <div>
-      <AdminOrdersView/>
+      <AdminOrdersView showToast={showToast}/>
     </div>
   )
 }

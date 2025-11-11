@@ -11,7 +11,7 @@ const initialFormData = {
     status : ''
 }
 
-const AdminOrderDetailsView = ({orderDetails}) => {
+const AdminOrderDetailsView = ({orderDetails,showToast}) => {
 
      const [formData, setFormData] = useState(initialFormData);
      const { user } = useSelector(state=> state.auth);
@@ -32,6 +32,9 @@ const AdminOrderDetailsView = ({orderDetails}) => {
                 // toast({
                 //    title: "Order Stataus Updated Successfully"
                 // })
+                showToast(data.payload.message)
+              }else{
+                showToast(data.error.message)
               }
           })
      }

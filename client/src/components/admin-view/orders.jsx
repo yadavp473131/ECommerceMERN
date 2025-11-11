@@ -9,7 +9,7 @@ import { getAllOrdersForAdmin, getOrderDetailsForAdmin, resetOrderDetails } from
 import { Badge } from '../ui/badge'
 
  
-const AdminOrdersView = () => {
+const AdminOrdersView = ({showToast}) => {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
   const { orderList, orderDetails } = useSelector(state=> state.adminOrder);
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const AdminOrdersView = () => {
               <Button 
               onClick={()=>handleFetchOrderDetails(orderItem?._id)} 
               className="bg-black text-white" >View Details</Button>
-                 <AdminOrderDetailsView orderDetails={orderDetails}/>
+                 <AdminOrderDetailsView orderDetails={orderDetails} showToast={showToast}/>
               </Dialog>
             </TableCell>
           </TableRow>
