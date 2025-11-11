@@ -4,7 +4,7 @@ import { MinusIcon, PlusIcon, Trash } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCartItem, updateCartQuantity } from '@/store/shop/cart-slice';
 
-const UserCartItemsContent = ({cartItem}) => {
+const UserCartItemsContent = ({cartItem, showToast}) => {
     const {user} = useSelector(state=>state.auth); 
     const dispatch = useDispatch();
     // const toast = useToast();
@@ -26,6 +26,7 @@ const UserCartItemsContent = ({cartItem}) => {
                     //   title: `Only ${getTotalStock} quantity can be added for this item`
                     //   variant: "destructive"
                     //  })
+                    showToast(`Only ${getTotalStock} quantity can be added for this item`)
                     return;
                   }
                 }
@@ -38,6 +39,7 @@ const UserCartItemsContent = ({cartItem}) => {
               //  toast({
               //   title: 'cart item is updated successfully'
               //  })
+              showToast('cart item is updated successfully',"success")
             }
           });
         
@@ -49,6 +51,7 @@ const UserCartItemsContent = ({cartItem}) => {
               //  toast({
               //   title: 'cart item is deleted successfully'
               //  })
+              showToast('cart item is deleted successfully',"success")
             }
           })
     }

@@ -47,7 +47,7 @@ export default function AdminProducts({showToast}) {
           setCurrentEditedId(null)
           showToast(data.payload.message, "success");
         }else{
-          showToast(data.error.message, "error");
+          showToast(data?.payload?.message, "error");
         }
       }) :
 
@@ -66,7 +66,7 @@ export default function AdminProducts({showToast}) {
           // })
           showToast(data.payload.message, "success")
         }else{
-          showToast(data.error.message,"error");
+          showToast(data?.payload.message,"error");
         }
       })
   }
@@ -78,7 +78,7 @@ export default function AdminProducts({showToast}) {
           showToast(data.payload.message, "success");
           dispatch(fetchAllProducts());
       }else{
-        showToast(data.error.message, "error");
+        showToast(data?.payload?.message, "error");
       }
     })
   }

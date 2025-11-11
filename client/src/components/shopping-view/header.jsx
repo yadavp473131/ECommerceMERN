@@ -68,7 +68,7 @@ function HeaderRightContent() {
         <span className='absolute top-[-2px] right-[2px] text-sm font-bold'>{cartItems?.items?.length || 0}</span>
         <span className='sr-only'>User cart</span>
       </Button>
-      <UserCartWrapper setOpenCartSheet={setOpenCartSheet} cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []} />
+      <UserCartWrapper setOpenCartSheet={setOpenCartSheet} cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []} showToast={showToast}/>
     </Sheet>
 
     <DropdownMenu>
@@ -88,7 +88,7 @@ function HeaderRightContent() {
   </div>
 }
 
-export default function ShoppingHeader() {
+export default function ShoppingHeader({showToast}) {
   const { isAuthenticated } = useSelector(state => state.auth)
 
 

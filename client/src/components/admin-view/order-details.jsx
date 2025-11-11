@@ -34,7 +34,7 @@ const AdminOrderDetailsView = ({orderDetails,showToast}) => {
                 // })
                 showToast(data.payload.message)
               }else{
-                showToast(data.error.message)
+                showToast(data?.payload?.message, "error");
               }
           })
      }

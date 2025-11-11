@@ -24,7 +24,7 @@ export default function AdminDashboard({showToast}) {
           setUploadedImageUrl("");
           showToast(data.payload.message,"success");
         }else{
-          showToast(data.error.message, "error")
+          showToast(data?.payload?.message, "error")
         }
 
       }

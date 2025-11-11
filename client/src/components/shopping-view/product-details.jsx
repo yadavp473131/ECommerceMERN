@@ -12,7 +12,7 @@ import { Label } from '../ui/label'
 import StarRatingComponent from '../common/star-rating'
 import  {addReview, getReviews}   from "../../store/shop/review-slice"
 
-const ProductDetailsDialog = ({open, setOpen, productDetails}) => {
+const ProductDetailsDialog = ({open, setOpen, productDetails, showToast}) => {
     const dispatch = useDispatch();
     const {user} = useSelector(state=>state.auth)
      const {cartItems} = useSelector(state=>state.shopCart);
@@ -41,6 +41,7 @@ const ProductDetailsDialog = ({open, setOpen, productDetails}) => {
                     // toast({
                     //     title: "Review added successfully"
                     // })
+                    showToast("Review Added Successfully!","success")
                 }
                
             })
@@ -57,6 +58,7 @@ const ProductDetailsDialog = ({open, setOpen, productDetails}) => {
             //   title: `Only ${getTotalStock} quantity can be added for this item`
             //   variant: "destructive"
             //  })
+            showToast(`Only ${getTotalStock} quantity can be added for this item`)
             return;
           }
         }
@@ -72,6 +74,9 @@ const ProductDetailsDialog = ({open, setOpen, productDetails}) => {
                 //   title: 'Product is added to cart',
                   
                 // })
+               showToast('Product is added to cart',"success");
+            }else{
+                showToast(data?.payload?.message);
             }
            });
     }

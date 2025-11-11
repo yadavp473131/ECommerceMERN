@@ -14,7 +14,7 @@ const initialAddressFormData = {
     notes: ''
 }
 
-const Address = ({ selectedId, setCurrentSelectedAddress}) => {
+const Address = ({ selectedId, setCurrentSelectedAddress, showToast}) => {
   
     const [formData, setFormData] = useState(initialAddressFormData);
     const [currentEditedId, setCurrentEditedId] = useState(null);
@@ -31,6 +31,7 @@ const Address = ({ selectedId, setCurrentSelectedAddress}) => {
             //     title: 'you can add max 3 addresses',
             //     variant: 'destructive'
             // })
+               showToast("you can add max 3 addresses", "info")
             return
            }
            
@@ -42,6 +43,7 @@ const Address = ({ selectedId, setCurrentSelectedAddress}) => {
                 // toast({
                 //     title: "Address Updated SuccessFully"
                 // })
+                showToast("Address Updated Successfully!")
             }
           }) : 
 
@@ -56,6 +58,7 @@ const Address = ({ selectedId, setCurrentSelectedAddress}) => {
                     // toast({
                 //     title: "Address Added SuccessFully"
                 // })
+                showToast("Address Added Successfully!")
                 }
              }
           )
@@ -83,6 +86,7 @@ const Address = ({ selectedId, setCurrentSelectedAddress}) => {
             //     title: 'Address Deleted Successfully',
             //     variant: 'destructive'
             // })
+            showToast("Address Deleted Successfully!")
             dispatch(fetchAllAddresses(user?.id))
         }
     })

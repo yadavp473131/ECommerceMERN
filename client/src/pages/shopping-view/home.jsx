@@ -71,7 +71,7 @@ export default function ShoppingHome({showToast}) {
           // })
          showToast(data.payload.message, "success")
         }else{
-          showToast(data.error.message, "error")
+          showToast(data?.payload?.message, "error")
         }
       });
   }

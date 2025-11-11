@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 import UserCartItemsContent from './cart-items-content';
 import { useNavigate } from 'react-router-dom';
 
-const UserCartWrapper = ({cartItems, setOpenCartSheet}) => {
+const UserCartWrapper = ({cartItems, setOpenCartSheet, showToast}) => {
 
    const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const UserCartWrapper = ({cartItems, setOpenCartSheet}) => {
         <div className='mt-8 space-y-4'>
           {
             cartItems && cartItems.length > 0 ? 
-            cartItems.map(item=> <UserCartItemsContent key={item.productId} cartItem={item}/>) : null
+            cartItems.map(item=> <UserCartItemsContent showToast={showToast} key={item.productId} cartItem={item}/>) : null
           }
         </div>
         <div className='mt-8 space-y-4'>

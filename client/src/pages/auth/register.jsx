@@ -33,7 +33,7 @@ export default function AuthRegister({showToast}) {
     //   title: data?.payload?.message,
     // variant: 'destructive'
     // })
-    showToast(data.error.message, "error")
+    showToast(data?.payload?.message, "error");
     }
     navigate('/auth/login'); 
   });
