@@ -25,13 +25,14 @@ export default function AuthLogin({showToast}) {
               //  toast ({
               //   title: data?.payload.message
               //  })
-              showToast(data.payload.message,"success");
+              showToast(data?.payload?.message,"success");
            }else{
               // toast({
               //   title: data?.payload.message,
               //   variant: 'destructive'
               //  })
-              showToast(data.error.message, "error")
+              showToast(data,"error")
+              showToast(data?.error.message, "error");
            }
         });
   }
