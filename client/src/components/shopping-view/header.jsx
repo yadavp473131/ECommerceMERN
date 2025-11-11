@@ -43,7 +43,7 @@ function MenuItems() {
   </nav>
 }
 
-function HeaderRightContent() {
+function HeaderRightContent({showToast}) {
   const { user } = useSelector(state => state.auth)
   const [openCartSheet, setOpenCartSheet] = useState(false);
   const navigate = useNavigate();
@@ -107,7 +107,7 @@ export default function ShoppingHeader({showToast}) {
         </SheetTrigger>
         <SheetContent side="left" className="w-full max-w-xs items-center bg-slate-50 p-10">
           <MenuItems />
-          <HeaderRightContent />
+          <HeaderRightContent showToast={showToast}/>
         </SheetContent>
       </Sheet>
 
