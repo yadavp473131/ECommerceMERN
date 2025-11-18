@@ -16,7 +16,7 @@ const ProductImageUpload = ({
   setImageLoadingState ,
   isEditMode,
   isCustomStyling = false,
-  showToast={showToast}
+  showToast
    }) => {
 
   const inputRef = useRef(null);

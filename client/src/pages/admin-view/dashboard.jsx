@@ -96,6 +96,7 @@ export default function AdminDashboard({showToast}) {
           setUploadedImageUrl={setUploadedImageUrl}
           isCustomStyling={true}
           isEditMode={currentEditedId !== null}
+          showToast={showToast}
         />
         <Button onClick={handleUploadFeatureImage} className="mt-5 w-full bg-black text-white">Upload</Button>
         <div className='flex flex-col gap-4 mt-5'>
