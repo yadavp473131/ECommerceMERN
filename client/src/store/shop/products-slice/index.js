@@ -4,7 +4,8 @@ import axios from "axios";
 
 const initialState = {
     isLoading: false,
-    shoppingList: [],
+    // shoppingList: [],
+    productList: [],
     productDetails: null
 }
 
@@ -14,14 +15,11 @@ export const fetchAllFilteredProducts = createAsyncThunk('/products/fetchAllProd
         ...filterParams,
         sortBy : sortParams
     })
-    
     const result = await axios.get(`${import.meta.env.VITE_API_URL}/api/shop/products/get?${query}`);
-    
     return result?.data;
 })
 
 export const fetchProductDetails = createAsyncThunk('/products/fetchProductDetails', async(id)=>{
-     console.log("trying to fetch from fetchProductDetails");
     const result = await axios.get(`${import.meta.env.VITE_API_URL}/api/shop/products/get/${id}`);
     return result?.data;
 })
@@ -36,20 +34,20 @@ const shoppingProductsSlice = createSlice({
         }
     },
     extraReducers : (builder)=>{
-        builder.addCase(fetchAllFilteredProducts.pending, (state, action)=>{
+        builder.addCase(fetchAllFilteredProducts.pending, (state)=>{
             state.isLoading = true
         }).addCase(fetchAllFilteredProducts.fulfilled, (state, action)=>{
             state.isLoading = false,
             state.productList = action.payload.data
-        }).addCase(fetchAllFilteredProducts.rejected, (state, action)=>{
+        }).addCase(fetchAllFilteredProducts.rejected, (state)=>{
             state.isLoading = false,
             state.productList = []
-        }).addCase(fetchProductDetails.pending, (state, action)=>{
+        }).addCase(fetchProductDetails.pending, (state)=>{
             state.isLoading = true
         }).addCase(fetchProductDetails.fulfilled, (state, action)=>{
             state.isLoading = false,
             state.productDetails = action.payload.data
-        }).addCase(fetchProductDetails.rejected, (state, action)=>{
+        }).addCase(fetchProductDetails.rejected, (state)=>{
             state.isLoading = false,
             state.productDetails = null
         })

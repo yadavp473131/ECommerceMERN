@@ -54,13 +54,13 @@ export default function ShoppingListing({showToast}) {
             [getSectionId]: [getCurrentOption]
           }
          }else{
-          const indexOfCurrentOption = cpyFilters[getSectionId].indexOf(getCurrentOption);
-          if(indexOfCurrentOption === -1){
-            cpyFilters[getSectionId].push(getCurrentOption);
-          }else{
-            //remove it 
-            cpyFilters[getSectionId].splice(indexOfCurrentOption, 1);
-          }
+            const indexOfCurrentOption = cpyFilters[getSectionId].indexOf(getCurrentOption);
+            if(indexOfCurrentOption === -1){
+              cpyFilters[getSectionId].push(getCurrentOption);
+            }else{
+              //remove it 
+              cpyFilters[getSectionId].splice(indexOfCurrentOption, 1);
+            }
          }
          
          setFilters(cpyFilters)
@@ -118,8 +118,7 @@ export default function ShoppingListing({showToast}) {
  
   // fetch list of products
   useEffect(() => {
-    if(filters !== null && sort !==null){
-     
+    if(filters !== null && sort !==null){  
       dispatch(fetchAllFilteredProducts({filterParams: filters, sortParams: sort}))
     }
   }, [dispatch, sort, filters]);
